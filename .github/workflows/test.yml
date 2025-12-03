@@ -66,7 +66,7 @@ jobs:
 
       - name: Publish test report
         if: always()
-        uses: mikepenz/action-junit-report@v4
+        uses: mikepenz/action-junit-report@v6
         with:
           report_paths: test-results.xml
           check_name: Test Results (${{ matrix.os }}, Python ${{ matrix.python-version }})
