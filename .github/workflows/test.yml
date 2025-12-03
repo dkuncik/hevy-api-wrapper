@@ -50,7 +50,28 @@ jobs:
         run: poetry install --no-interaction
 
       - name: Run tests
-        run: poetry run pytest tests/ -v
+        run: poetry run pytest tests/ -v --tb=short --junitxml=test-results.xml --cov=hevy_api_wrapper --cov-report=xml --cov-report=html --cov-report=term
+
+      - name: Upload test results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-results-${{ matrix.os }}-${{ matrix.python-version }}
+          path: test-results.xml
+
+      - name: Publish test report
+        if: always()
+        uses: mikepenz/action-junit-report@v4
+        with:
+          report_paths: test-results.xml
+          check_name: Test Results (${{ matrix.os }}, Python ${{ matrix.python-version }})
+
+      - name: Upload coverage HTML report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage-report-${{ matrix.os }}-${{ matrix.python-version }}
+          path: htmlcov/
 
       - name: Upload coverage reports (Ubuntu only)
         if: matrix.os == 'ubuntu-latest' && matrix.python-version == '3.12'
