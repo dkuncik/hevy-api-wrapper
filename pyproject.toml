@@ -1,0 +1,28 @@
+[tool.poetry]
+name = "hevy-api-wrapper"
+version = "1.0.0"
+description = "Python API wrapper for the Hevy API (sync + async, typed models, retries, pagination)"
+authors = ["Dominic Kuncik <itsdomhd@gmail.com>"]
+license = "MIT"
+readme = "README.md"
+packages = [{ include = "hevy_api_wrapper", from = "src" }]
+homepage = "https://github.com/dkuncik/hevy-api-wrapper"
+repository = "https://github.com/dkuncik/hevy-api-wrapper"
+keywords = ["hevy", "fitness", "api", "client", "httpx"]
+include = ["src/hevy_api_wrapper/py.typed"]
+
+[tool.poetry.dependencies]
+python = ">=3.10,<4.0"
+httpx = ">=0.27.0"
+pydantic = ">=2.5.0"
+typing-extensions = ">=4.8.0"
+
+[tool.poetry.group.dev.dependencies]
+pytest = ">=7.4"
+respx = ">=0.21.1"
+python-dotenv = ">=1.0.0"
+pytest-asyncio = ">=0.23"
+
+[build-system]
+requires = ["poetry-core>=1.7.0"]
+build-backend = "poetry.core.masonry.api"
