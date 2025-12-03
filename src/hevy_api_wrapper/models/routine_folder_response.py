@@ -14,4 +14,5 @@ class RoutineFolderResponse(BaseModel):
 
     The API returns the folder wrapped in a routine_folder field.
     """
+
     routine_folder: RoutineFolder

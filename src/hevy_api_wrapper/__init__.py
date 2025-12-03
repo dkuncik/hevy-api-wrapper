@@ -4,10 +4,10 @@ This package provides both synchronous and asynchronous clients for interacting
 with the Hevy API, complete with type-safe models and comprehensive error handling.
 """
 
-from .client import Client, AsyncClient
+from .client import AsyncClient, Client
 from .errors import (
-    HevyApiError,
     AuthError,
+    HevyApiError,
     NotFoundError,
     RateLimitError,
     ServerError,

@@ -33,26 +33,31 @@ class HevyApiError(Exception):
 
 class AuthError(HevyApiError):
     """Authentication or authorization error (401, 403)."""
+
     pass
 
 
 class NotFoundError(HevyApiError):
     """Resource not found error (404)."""
+
     pass
 
 
 class RateLimitError(HevyApiError):
     """Rate limit exceeded error (429)."""
+
     pass
 
 
 class ServerError(HevyApiError):
     """Server error from the API (5xx)."""
+
     pass
 
 
 class ValidationError(HevyApiError):
     """Request validation error (400)."""
+
     pass
 
 
@@ -84,17 +89,49 @@ def raise_for_status(
     if 200 <= status_code < 300:
         return
     if status_code == 400:
-        raise ValidationError(message, status_code=status_code, error_code=error_code, details=details,
-                              request_id=request_id)
+        raise ValidationError(
+            message,
+            status_code=status_code,
+            error_code=error_code,
+            details=details,
+            request_id=request_id,
+        )
     if status_code in (401, 403):
-        raise AuthError(message, status_code=status_code, error_code=error_code, details=details, request_id=request_id)
+        raise AuthError(
+            message,
+            status_code=status_code,
+            error_code=error_code,
+            details=details,
+            request_id=request_id,
+        )
     if status_code == 404:
-        raise NotFoundError(message, status_code=status_code, error_code=error_code, details=details,
-                            request_id=request_id)
+        raise NotFoundError(
+            message,
+            status_code=status_code,
+            error_code=error_code,
+            details=details,
+            request_id=request_id,
+        )
     if status_code == 429:
-        raise RateLimitError(message, status_code=status_code, error_code=error_code, details=details,
-                             request_id=request_id)
+        raise RateLimitError(
+            message,
+            status_code=status_code,
+            error_code=error_code,
+            details=details,
+            request_id=request_id,
+        )
     if 500 <= status_code < 600:
-        raise ServerError(message, status_code=status_code, error_code=error_code, details=details,
-                          request_id=request_id)
-    raise HevyApiError(message, status_code=status_code, error_code=error_code, details=details, request_id=request_id)
+        raise ServerError(
+            message,
+            status_code=status_code,
+            error_code=error_code,
+            details=details,
+            request_id=request_id,
+        )
+    raise HevyApiError(
+        message,
+        status_code=status_code,
+        error_code=error_code,
+        details=details,
+        request_id=request_id,
+    )

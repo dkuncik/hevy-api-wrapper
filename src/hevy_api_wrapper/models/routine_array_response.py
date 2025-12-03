@@ -16,4 +16,5 @@ class RoutineArrayResponse(BaseModel):
 
     The API returns routines as an array even for single routine operations.
     """
+
     routine: List[Routine]

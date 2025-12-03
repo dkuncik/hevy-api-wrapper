@@ -9,6 +9,7 @@ __all__ = ["MuscleGroup"]
 
 class MuscleGroup(str, Enum):
     """Supported muscle groups in Hevy."""
+
     abdominals = "abdominals"
     shoulders = "shoulders"
     biceps = "biceps"

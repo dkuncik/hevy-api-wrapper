@@ -4,25 +4,25 @@ import respx
 from hevy_api_wrapper import AsyncClient
 from hevy_api_wrapper.errors import NotFoundError
 from hevy_api_wrapper.models import (
-    PostWorkoutsRequestBody,
-    PostWorkoutsRequestBodyWorkout,
-    PostWorkoutsRequestExercise,
-    PostWorkoutsRequestSet,
+    CreateCustomExercise,
+    CreateCustomExerciseRequestBody,
+    CustomExerciseType,
+    EquipmentCategory,
+    MuscleGroup,
+    PostRoutineFolder,
+    PostRoutineFolderRequestBody,
     PostRoutinesRequestBody,
     PostRoutinesRequestBodyRoutine,
     PostRoutinesRequestExercise,
     PostRoutinesRequestSet,
+    PostWorkoutsRequestBody,
+    PostWorkoutsRequestBodyWorkout,
+    PostWorkoutsRequestExercise,
+    PostWorkoutsRequestSet,
     PutRoutinesRequestBody,
     PutRoutinesRequestBodyRoutine,
     PutRoutinesRequestExercise,
     PutRoutinesRequestSet,
-    CreateCustomExerciseRequestBody,
-    CreateCustomExercise,
-    MuscleGroup,
-    EquipmentCategory,
-    CustomExerciseType,
-    PostRoutineFolderRequestBody,
-    PostRoutineFolder,
 )
 
 BASE = "https://api.hevyapp.com"
@@ -140,23 +140,33 @@ def sample_routine_folder_json(id: int = 42, title: str = "Push Pull"):
 @respx.mock
 @pytest.mark.asyncio
 async def test_workouts_endpoints_async():
-    respx.get(f"{BASE}/v1/workouts").respond(200, json={
-        "page": 1,
-        "page_count": 1,
-        "workouts": [sample_workout_json()],
-    })
+    respx.get(f"{BASE}/v1/workouts").respond(
+        200,
+        json={
+            "page": 1,
+            "page_count": 1,
+            "workouts": [sample_workout_json()],
+        },
+    )
     # Create - API returns workout wrapped in array
-    respx.post(f"{BASE}/v1/workouts").respond(201, json={"workout": [sample_workout_json()]})
+    respx.post(f"{BASE}/v1/workouts").respond(
+        201, json={"workout": [sample_workout_json()]}
+    )
     respx.get(f"{BASE}/v1/workouts/w-1").respond(200, json=sample_workout_json())
     # Update - API returns workout wrapped in array
-    respx.put(f"{BASE}/v1/workouts/w-1").respond(200, json={"workout": [sample_workout_json()]})
-    respx.get(f"{BASE}/v1/workouts/events").respond(200, json={
-        "page": 1,
-        "page_count": 1,
-        "events": [
-            {"type": "updated", "workout": sample_workout_json()},
-        ],
-    })
+    respx.put(f"{BASE}/v1/workouts/w-1").respond(
+        200, json={"workout": [sample_workout_json()]}
+    )
+    respx.get(f"{BASE}/v1/workouts/events").respond(
+        200,
+        json={
+            "page": 1,
+            "page_count": 1,
+            "events": [
+                {"type": "updated", "workout": sample_workout_json()},
+            ],
+        },
+    )
     respx.get(f"{BASE}/v1/workouts/count").respond(200, json={"workout_count": 42})
 
     c = AsyncClient(api_key="test-key")
@@ -177,7 +187,9 @@ async def test_workouts_endpoints_async():
                     exercise_template_id="05293BCA",
                     superset_id=None,
                     notes=None,
-                    sets=[PostWorkoutsRequestSet(type="normal", weight_kg=100, reps=10)],
+                    sets=[
+                        PostWorkoutsRequestSet(type="normal", weight_kg=100, reps=10)
+                    ],
                 )
             ],
         )
@@ -204,16 +216,25 @@ async def test_workouts_endpoints_async():
 @respx.mock
 @pytest.mark.asyncio
 async def test_routines_endpoints_async():
-    respx.get(f"{BASE}/v1/routines").respond(200, json={
-        "page": 1,
-        "page_count": 1,
-        "routines": [sample_routine_json()],
-    })
+    respx.get(f"{BASE}/v1/routines").respond(
+        200,
+        json={
+            "page": 1,
+            "page_count": 1,
+            "routines": [sample_routine_json()],
+        },
+    )
     # Create - API returns routine wrapped in array
-    respx.post(f"{BASE}/v1/routines").respond(201, json={"routine": [sample_routine_json()]})
-    respx.get(f"{BASE}/v1/routines/r-1").respond(200, json={"routine": sample_routine_json()})
+    respx.post(f"{BASE}/v1/routines").respond(
+        201, json={"routine": [sample_routine_json()]}
+    )
+    respx.get(f"{BASE}/v1/routines/r-1").respond(
+        200, json={"routine": sample_routine_json()}
+    )
     # Update - API returns routine wrapped in array
-    respx.put(f"{BASE}/v1/routines/r-1").respond(200, json={"routine": [sample_routine_json()]})
+    respx.put(f"{BASE}/v1/routines/r-1").respond(
+        200, json={"routine": [sample_routine_json()]}
+    )
 
     c = AsyncClient(api_key="test-key")
 
@@ -231,7 +252,9 @@ async def test_routines_endpoints_async():
                     superset_id=None,
                     rest_seconds=60,
                     notes=None,
-                    sets=[PostRoutinesRequestSet(type="normal", weight_kg=100, reps=10)],
+                    sets=[
+                        PostRoutinesRequestSet(type="normal", weight_kg=100, reps=10)
+                    ],
                 )
             ],
         )
@@ -268,13 +291,18 @@ async def test_routines_endpoints_async():
 @respx.mock
 @pytest.mark.asyncio
 async def test_exercise_templates_endpoints_async():
-    respx.get(f"{BASE}/v1/exercise_templates").respond(200, json={
-        "page": 1,
-        "page_count": 1,
-        "exercise_templates": [sample_exercise_template_json()],
-    })
+    respx.get(f"{BASE}/v1/exercise_templates").respond(
+        200,
+        json={
+            "page": 1,
+            "page_count": 1,
+            "exercise_templates": [sample_exercise_template_json()],
+        },
+    )
     respx.post(f"{BASE}/v1/exercise_templates").respond(200, json={"id": 123})
-    respx.get(f"{BASE}/v1/exercise_templates/T-1").respond(200, json=sample_exercise_template_json())
+    respx.get(f"{BASE}/v1/exercise_templates/T-1").respond(
+        200, json=sample_exercise_template_json()
+    )
 
     c = AsyncClient(api_key="test-key")
 
@@ -303,22 +331,30 @@ async def test_exercise_templates_endpoints_async():
 @respx.mock
 @pytest.mark.asyncio
 async def test_routine_folders_endpoints_async():
-    respx.get(f"{BASE}/v1/routine_folders").respond(200, json={
-        "page": 1,
-        "page_count": 1,
-        "routine_folders": [sample_routine_folder_json()],
-    })
+    respx.get(f"{BASE}/v1/routine_folders").respond(
+        200,
+        json={
+            "page": 1,
+            "page_count": 1,
+            "routine_folders": [sample_routine_folder_json()],
+        },
+    )
     # Create - API returns routine_folder wrapped in object
-    respx.post(f"{BASE}/v1/routine_folders").respond(201, json={
-        "routine_folder": sample_routine_folder_json(100, "New Folder")})
-    respx.get(f"{BASE}/v1/routine_folders/42").respond(200, json=sample_routine_folder_json())
+    respx.post(f"{BASE}/v1/routine_folders").respond(
+        201, json={"routine_folder": sample_routine_folder_json(100, "New Folder")}
+    )
+    respx.get(f"{BASE}/v1/routine_folders/42").respond(
+        200, json=sample_routine_folder_json()
+    )
 
     c = AsyncClient(api_key="test-key")
 
     page = await c.routine_folders.get_routine_folders(page=1, page_size=5)
     assert len(page.routine_folders) == 1
 
-    body = PostRoutineFolderRequestBody(routine_folder=PostRoutineFolder(title="New Folder"))
+    body = PostRoutineFolderRequestBody(
+        routine_folder=PostRoutineFolder(title="New Folder")
+    )
     created = await c.routine_folders.create_routine_folder(body)
     assert created.id == 100
 
@@ -331,7 +367,9 @@ async def test_routine_folders_endpoints_async():
 @respx.mock
 @pytest.mark.asyncio
 async def test_exercise_history_endpoint_async():
-    respx.get(f"{BASE}/v1/exercise_history/05293BCA").respond(200, json=sample_exercise_history_json())
+    respx.get(f"{BASE}/v1/exercise_history/05293BCA").respond(
+        200, json=sample_exercise_history_json()
+    )
 
     c = AsyncClient(api_key="test-key")
     hist = await c.exercise_history.get_exercise_history("05293BCA")
@@ -342,7 +380,9 @@ async def test_exercise_history_endpoint_async():
 @respx.mock
 @pytest.mark.asyncio
 async def test_not_found_raises_error_async():
-    respx.get(f"{BASE}/v1/workouts/does-not-exist").respond(404, json={"message": "not found"})
+    respx.get(f"{BASE}/v1/workouts/does-not-exist").respond(
+        404, json={"message": "not found"}
+    )
 
     c = AsyncClient(api_key="test-key")
     with pytest.raises(NotFoundError):
@@ -353,16 +393,21 @@ async def test_not_found_raises_error_async():
 @respx.mock
 @pytest.mark.asyncio
 async def test_workout_events_with_custom_since_async():
-    respx.get(f"{BASE}/v1/workouts/events").respond(200, json={
-        "page": 1,
-        "page_count": 1,
-        "events": [
-            {"type": "updated", "workout": sample_workout_json()},
-        ],
-    })
+    respx.get(f"{BASE}/v1/workouts/events").respond(
+        200,
+        json={
+            "page": 1,
+            "page_count": 1,
+            "events": [
+                {"type": "updated", "workout": sample_workout_json()},
+            ],
+        },
+    )
 
     c = AsyncClient(api_key="test-key")
-    events = await c.workouts.get_events(page=1, page_size=5, since="2024-01-01T00:00:00Z")
+    events = await c.workouts.get_events(
+        page=1, page_size=5, since="2024-01-01T00:00:00Z"
+    )
     assert events.page == 1 and len(events.events) == 1
     await c.aclose()
 
@@ -371,17 +416,24 @@ async def test_workout_events_with_custom_since_async():
 @pytest.mark.asyncio
 async def test_workout_without_routine_id_async():
     """Test that workout can be created without routine_id (it gets omitted from request)."""
-    respx.post(f"{BASE}/v1/workouts").respond(201, json={"workout": [{
-        "id": "w-no-routine",
-        "title": "Standalone Workout",
-        "routine_id": None,
-        "description": "No routine",
-        "start_time": "2021-09-14T12:00:00Z",
-        "end_time": "2021-09-14T12:30:00Z",
-        "updated_at": "2021-09-14T12:31:00Z",
-        "created_at": "2021-09-14T12:00:00Z",
-        "exercises": [],
-    }]})
+    respx.post(f"{BASE}/v1/workouts").respond(
+        201,
+        json={
+            "workout": [
+                {
+                    "id": "w-no-routine",
+                    "title": "Standalone Workout",
+                    "routine_id": None,
+                    "description": "No routine",
+                    "start_time": "2021-09-14T12:00:00Z",
+                    "end_time": "2021-09-14T12:30:00Z",
+                    "updated_at": "2021-09-14T12:31:00Z",
+                    "created_at": "2021-09-14T12:00:00Z",
+                    "exercises": [],
+                }
+            ]
+        },
+    )
 
     c = AsyncClient(api_key="test-key")
 
@@ -409,18 +461,23 @@ async def test_workout_without_routine_id_async():
 @pytest.mark.asyncio
 async def test_exercise_template_with_bodyweight_assisted_async():
     """Test that bodyweight_assisted exercise type is supported."""
-    respx.get(f"{BASE}/v1/exercise_templates").respond(200, json={
-        "page": 1,
-        "page_count": 1,
-        "exercise_templates": [{
-            "id": "T-2",
-            "title": "Pull-up (Assisted)",
-            "type": "bodyweight_assisted",
-            "primary_muscle_group": "lats",
-            "secondary_muscle_groups": ["biceps"],
-            "is_custom": False,
-        }],
-    })
+    respx.get(f"{BASE}/v1/exercise_templates").respond(
+        200,
+        json={
+            "page": 1,
+            "page_count": 1,
+            "exercise_templates": [
+                {
+                    "id": "T-2",
+                    "title": "Pull-up (Assisted)",
+                    "type": "bodyweight_assisted",
+                    "primary_muscle_group": "lats",
+                    "secondary_muscle_groups": ["biceps"],
+                    "is_custom": False,
+                }
+            ],
+        },
+    )
 
     c = AsyncClient(api_key="test-key")
 

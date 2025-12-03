@@ -4,25 +4,25 @@ import respx
 from hevy_api_wrapper import Client
 from hevy_api_wrapper.errors import NotFoundError
 from hevy_api_wrapper.models import (
-    PostWorkoutsRequestBody,
-    PostWorkoutsRequestBodyWorkout,
-    PostWorkoutsRequestExercise,
-    PostWorkoutsRequestSet,
+    CreateCustomExercise,
+    CreateCustomExerciseRequestBody,
+    CustomExerciseType,
+    EquipmentCategory,
+    MuscleGroup,
+    PostRoutineFolder,
+    PostRoutineFolderRequestBody,
     PostRoutinesRequestBody,
     PostRoutinesRequestBodyRoutine,
     PostRoutinesRequestExercise,
     PostRoutinesRequestSet,
+    PostWorkoutsRequestBody,
+    PostWorkoutsRequestBodyWorkout,
+    PostWorkoutsRequestExercise,
+    PostWorkoutsRequestSet,
     PutRoutinesRequestBody,
     PutRoutinesRequestBodyRoutine,
     PutRoutinesRequestExercise,
     PutRoutinesRequestSet,
-    CreateCustomExerciseRequestBody,
-    CreateCustomExercise,
-    MuscleGroup,
-    EquipmentCategory,
-    CustomExerciseType,
-    PostRoutineFolderRequestBody,
-    PostRoutineFolder,
 )
 
 BASE = "https://api.hevyapp.com"
@@ -130,26 +130,36 @@ def sample_exercise_history_json():
 @respx.mock
 def test_workouts_endpoints_sync():
     # List
-    respx.get(f"{BASE}/v1/workouts").respond(200, json={
-        "page": 1,
-        "page_count": 1,
-        "workouts": [sample_workout_json()],
-    })
+    respx.get(f"{BASE}/v1/workouts").respond(
+        200,
+        json={
+            "page": 1,
+            "page_count": 1,
+            "workouts": [sample_workout_json()],
+        },
+    )
     # Create - API returns workout wrapped in array
-    respx.post(f"{BASE}/v1/workouts").respond(201, json={"workout": [sample_workout_json()]})
+    respx.post(f"{BASE}/v1/workouts").respond(
+        201, json={"workout": [sample_workout_json()]}
+    )
     # Get single
     respx.get(f"{BASE}/v1/workouts/w-1").respond(200, json=sample_workout_json())
     # Update - API returns workout wrapped in array
-    respx.put(f"{BASE}/v1/workouts/w-1").respond(200, json={"workout": [sample_workout_json()]})
+    respx.put(f"{BASE}/v1/workouts/w-1").respond(
+        200, json={"workout": [sample_workout_json()]}
+    )
     # Events
-    respx.get(f"{BASE}/v1/workouts/events").respond(200, json={
-        "page": 1,
-        "page_count": 1,
-        "events": [
-            {"type": "updated", "workout": sample_workout_json()},
-            {"type": "deleted", "id": "w-2", "deleted_at": "2021-09-14T12:40:00Z"},
-        ],
-    })
+    respx.get(f"{BASE}/v1/workouts/events").respond(
+        200,
+        json={
+            "page": 1,
+            "page_count": 1,
+            "events": [
+                {"type": "updated", "workout": sample_workout_json()},
+                {"type": "deleted", "id": "w-2", "deleted_at": "2021-09-14T12:40:00Z"},
+            ],
+        },
+    )
     # Count
     respx.get(f"{BASE}/v1/workouts/count").respond(200, json={"workout_count": 42})
 
@@ -171,7 +181,9 @@ def test_workouts_endpoints_sync():
                     exercise_template_id="05293BCA",
                     superset_id=None,
                     notes=None,
-                    sets=[PostWorkoutsRequestSet(type="normal", weight_kg=100, reps=10)],
+                    sets=[
+                        PostWorkoutsRequestSet(type="normal", weight_kg=100, reps=10)
+                    ],
                 )
             ],
         )
@@ -197,16 +209,25 @@ def test_workouts_endpoints_sync():
 
 @respx.mock
 def test_routines_endpoints_sync():
-    respx.get(f"{BASE}/v1/routines").respond(200, json={
-        "page": 1,
-        "page_count": 1,
-        "routines": [sample_routine_json()],
-    })
+    respx.get(f"{BASE}/v1/routines").respond(
+        200,
+        json={
+            "page": 1,
+            "page_count": 1,
+            "routines": [sample_routine_json()],
+        },
+    )
     # Create - API returns routine wrapped in array
-    respx.post(f"{BASE}/v1/routines").respond(201, json={"routine": [sample_routine_json()]})
-    respx.get(f"{BASE}/v1/routines/r-1").respond(200, json={"routine": sample_routine_json()})
+    respx.post(f"{BASE}/v1/routines").respond(
+        201, json={"routine": [sample_routine_json()]}
+    )
+    respx.get(f"{BASE}/v1/routines/r-1").respond(
+        200, json={"routine": sample_routine_json()}
+    )
     # Update - API returns routine wrapped in array
-    respx.put(f"{BASE}/v1/routines/r-1").respond(200, json={"routine": [sample_routine_json()]})
+    respx.put(f"{BASE}/v1/routines/r-1").respond(
+        200, json={"routine": [sample_routine_json()]}
+    )
 
     c = Client(api_key="test-key")
 
@@ -224,7 +245,9 @@ def test_routines_endpoints_sync():
                     superset_id=None,
                     rest_seconds=60,
                     notes=None,
-                    sets=[PostRoutinesRequestSet(type="normal", weight_kg=100, reps=10)],
+                    sets=[
+                        PostRoutinesRequestSet(type="normal", weight_kg=100, reps=10)
+                    ],
                 )
             ],
         )
@@ -260,13 +283,18 @@ def test_routines_endpoints_sync():
 
 @respx.mock
 def test_exercise_templates_endpoints_sync():
-    respx.get(f"{BASE}/v1/exercise_templates").respond(200, json={
-        "page": 1,
-        "page_count": 1,
-        "exercise_templates": [sample_exercise_template_json()],
-    })
+    respx.get(f"{BASE}/v1/exercise_templates").respond(
+        200,
+        json={
+            "page": 1,
+            "page_count": 1,
+            "exercise_templates": [sample_exercise_template_json()],
+        },
+    )
     respx.post(f"{BASE}/v1/exercise_templates").respond(200, json={"id": 123})
-    respx.get(f"{BASE}/v1/exercise_templates/T-1").respond(200, json=sample_exercise_template_json())
+    respx.get(f"{BASE}/v1/exercise_templates/T-1").respond(
+        200, json=sample_exercise_template_json()
+    )
 
     c = Client(api_key="test-key")
 
@@ -294,41 +322,54 @@ def test_exercise_templates_endpoints_sync():
 
 @respx.mock
 def test_routine_folders_endpoints_sync():
-    respx.get(f"{BASE}/v1/routine_folders").respond(200, json={
-        "page": 1,
-        "page_count": 1,
-        "routine_folders": [{
+    respx.get(f"{BASE}/v1/routine_folders").respond(
+        200,
+        json={
+            "page": 1,
+            "page_count": 1,
+            "routine_folders": [
+                {
+                    "id": 42,
+                    "index": 0,
+                    "title": "Push Pull",
+                    "updated_at": "2021-09-14T12:31:00Z",
+                    "created_at": "2021-09-14T12:00:00Z",
+                }
+            ],
+        },
+    )
+    # Create - API returns routine_folder wrapped in object
+    respx.post(f"{BASE}/v1/routine_folders").respond(
+        201,
+        json={
+            "routine_folder": {
+                "id": 100,
+                "index": 0,
+                "title": "New Folder",
+                "updated_at": "2021-09-14T12:31:00Z",
+                "created_at": "2021-09-14T12:00:00Z",
+            }
+        },
+    )
+    respx.get(f"{BASE}/v1/routine_folders/42").respond(
+        200,
+        json={
             "id": 42,
             "index": 0,
             "title": "Push Pull",
             "updated_at": "2021-09-14T12:31:00Z",
             "created_at": "2021-09-14T12:00:00Z",
-        }],
-    })
-    # Create - API returns routine_folder wrapped in object
-    respx.post(f"{BASE}/v1/routine_folders").respond(201, json={
-        "routine_folder": {
-            "id": 100,
-            "index": 0,
-            "title": "New Folder",
-            "updated_at": "2021-09-14T12:31:00Z",
-            "created_at": "2021-09-14T12:00:00Z",
-        }
-    })
-    respx.get(f"{BASE}/v1/routine_folders/42").respond(200, json={
-        "id": 42,
-        "index": 0,
-        "title": "Push Pull",
-        "updated_at": "2021-09-14T12:31:00Z",
-        "created_at": "2021-09-14T12:00:00Z",
-    })
+        },
+    )
 
     c = Client(api_key="test-key")
 
     page = c.routine_folders.get_routine_folders(page=1, page_size=5)
     assert len(page.routine_folders) == 1
 
-    body = PostRoutineFolderRequestBody(routine_folder=PostRoutineFolder(title="New Folder"))
+    body = PostRoutineFolderRequestBody(
+        routine_folder=PostRoutineFolder(title="New Folder")
+    )
     created = c.routine_folders.create_routine_folder(body)
     assert created.id == 100
 
@@ -340,7 +381,9 @@ def test_routine_folders_endpoints_sync():
 
 @respx.mock
 def test_exercise_history_endpoint_sync():
-    respx.get(f"{BASE}/v1/exercise_history/05293BCA").respond(200, json=sample_exercise_history_json())
+    respx.get(f"{BASE}/v1/exercise_history/05293BCA").respond(
+        200, json=sample_exercise_history_json()
+    )
 
     c = Client(api_key="test-key")
     hist = c.exercise_history.get_exercise_history("05293BCA")
@@ -350,7 +393,9 @@ def test_exercise_history_endpoint_sync():
 
 @respx.mock
 def test_not_found_raises_error_sync():
-    respx.get(f"{BASE}/v1/workouts/does-not-exist").respond(404, json={"message": "not found"})
+    respx.get(f"{BASE}/v1/workouts/does-not-exist").respond(
+        404, json={"message": "not found"}
+    )
 
     c = Client(api_key="test-key")
     with pytest.raises(NotFoundError):
@@ -367,13 +412,16 @@ def test_page_size_guard():
 
 @respx.mock
 def test_workout_events_with_custom_since():
-    respx.get(f"{BASE}/v1/workouts/events").respond(200, json={
-        "page": 1,
-        "page_count": 1,
-        "events": [
-            {"type": "updated", "workout": sample_workout_json()},
-        ],
-    })
+    respx.get(f"{BASE}/v1/workouts/events").respond(
+        200,
+        json={
+            "page": 1,
+            "page_count": 1,
+            "events": [
+                {"type": "updated", "workout": sample_workout_json()},
+            ],
+        },
+    )
 
     c = Client(api_key="test-key")
     events = c.workouts.get_events(page=1, page_size=5, since="2024-01-01T00:00:00Z")
@@ -384,17 +432,24 @@ def test_workout_events_with_custom_since():
 @respx.mock
 def test_workout_without_routine_id_sync():
     """Test that workout can be created without routine_id (it gets omitted from request)."""
-    respx.post(f"{BASE}/v1/workouts").respond(201, json={"workout": [{
-        "id": "w-no-routine",
-        "title": "Standalone Workout",
-        "routine_id": None,
-        "description": "No routine",
-        "start_time": "2021-09-14T12:00:00Z",
-        "end_time": "2021-09-14T12:30:00Z",
-        "updated_at": "2021-09-14T12:31:00Z",
-        "created_at": "2021-09-14T12:00:00Z",
-        "exercises": [],
-    }]})
+    respx.post(f"{BASE}/v1/workouts").respond(
+        201,
+        json={
+            "workout": [
+                {
+                    "id": "w-no-routine",
+                    "title": "Standalone Workout",
+                    "routine_id": None,
+                    "description": "No routine",
+                    "start_time": "2021-09-14T12:00:00Z",
+                    "end_time": "2021-09-14T12:30:00Z",
+                    "updated_at": "2021-09-14T12:31:00Z",
+                    "created_at": "2021-09-14T12:00:00Z",
+                    "exercises": [],
+                }
+            ]
+        },
+    )
 
     c = Client(api_key="test-key")
 
@@ -421,18 +476,23 @@ def test_workout_without_routine_id_sync():
 @respx.mock
 def test_exercise_template_with_bodyweight_assisted_sync():
     """Test that bodyweight_assisted exercise type is supported."""
-    respx.get(f"{BASE}/v1/exercise_templates").respond(200, json={
-        "page": 1,
-        "page_count": 1,
-        "exercise_templates": [{
-            "id": "T-2",
-            "title": "Pull-up (Assisted)",
-            "type": "bodyweight_assisted",
-            "primary_muscle_group": "lats",
-            "secondary_muscle_groups": ["biceps"],
-            "is_custom": False,
-        }],
-    })
+    respx.get(f"{BASE}/v1/exercise_templates").respond(
+        200,
+        json={
+            "page": 1,
+            "page_count": 1,
+            "exercise_templates": [
+                {
+                    "id": "T-2",
+                    "title": "Pull-up (Assisted)",
+                    "type": "bodyweight_assisted",
+                    "primary_muscle_group": "lats",
+                    "secondary_muscle_groups": ["biceps"],
+                    "is_custom": False,
+                }
+            ],
+        },
+    )
 
     c = Client(api_key="test-key")
 
