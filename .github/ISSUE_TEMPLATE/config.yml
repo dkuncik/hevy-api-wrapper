@@ -1,0 +1,9 @@
+blank_issues_enabled: true
+contact_links:
+  - name: Hevy API Documentation
+    url: https://api.hevyapp.com/docs/
+    about: Official Hevy API documentation
+  - name: Examples
+    url: https://github.com/dkuncik/hevy-api-wrapper/tree/main/examples
+    about: Check out working code examples
+
