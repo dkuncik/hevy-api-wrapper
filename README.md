@@ -529,30 +529,23 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ---
 
-## 📊 Changelog
+## 🧾 Changelog
 
-### v1.0.1 (2025-12-03)
+### v1.0.0 — First public stable release (2025-12-03)
 
-- 🐛 Fixed `routine_id` handling in workout creation/update - now properly excludes empty strings from API requests
-- 🐛 Fixed response unwrapping for `update_workout()` - correctly handles nested workout array responses
-- 🐛 Fixed response unwrapping for routine folders - simplified to use consistent pattern
-- 🐛 Fixed timezone-aware datetime comparisons in exercise history filtering
-- 🐛 Fixed `PaginatedWorkoutEvents` model - correctly exposes `updated` and `deleted` lists
-- 📝 Updated all examples to use real exercise template IDs from API
-- 📝 Consolidated examples into 4 comprehensive files with detailed demonstrations
-- ✅ Updated test suite to reflect all API behavior changes
+This is the first public stable release of `hevy-api-wrapper`.
 
-### v1.0.0 (2025-12-02)
+Highlights:
+- Sync and async clients (`Client`, `AsyncClient`)
+- Typed models for workouts, routines, exercise templates, routine folders, and exercise history
+- Robust pagination, retries, and structured error handling
+- Examples for common operations and test suite for endpoints
+- GitHub Actions for tests and code quality; pre-commit hooks for formatting
 
-- ✅ Initial release
-- ✅ Full API coverage: Workouts, Routines, Exercise Templates, Routine Folders, Exercise History
-- ✅ Sync and async client support
-- ✅ Comprehensive Pydantic models for all API resources
-- ✅ Automatic retries with exponential backoff
-- ✅ Custom exception hierarchy
-- ✅ 100% test coverage with 15+ test cases
-- ✅ Working examples for all major use cases
-- ✅ Environment variable support via python-dotenv
+Install:
+```bash
+pip install hevy-api-wrapper==1.0.0
+```
 
 ---
 
