@@ -642,7 +642,7 @@ Some API endpoints wrap responses in extra layers. The client automatically unwr
 ```python
 # When you call create_routine(), the API returns:
 # { "routine": { "id": "...", "title": "...", ... } }
-# 
+#
 # The client automatically extracts and returns just the routine object
 routine = client.routines.create_routine(body)
 print(routine.title)  # Direct access to routine properties
@@ -656,4 +656,3 @@ workout = client.workouts.update_workout(workout_id, body)
 ---
 
 **Made with ❤️ for the Hevy community**
-

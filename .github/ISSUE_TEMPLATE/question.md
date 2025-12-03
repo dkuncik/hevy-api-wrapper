@@ -40,4 +40,3 @@ Add any other context or screenshots about your question here.
 
 - Link to relevant documentation: [Hevy API Docs](https://api.hevyapp.com/docs/)
 - Link to relevant example files if applicable
-

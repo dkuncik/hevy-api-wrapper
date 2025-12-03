@@ -13,11 +13,11 @@ from dotenv import load_dotenv
 
 from hevy_api_wrapper import Client
 from hevy_api_wrapper.models import (
-    CreateCustomExerciseRequestBody,
     CreateCustomExercise,
+    CreateCustomExerciseRequestBody,
     CustomExerciseType,
-    MuscleGroup,
     EquipmentCategory,
+    MuscleGroup,
 )
 
 load_dotenv()
@@ -45,7 +45,9 @@ def list_exercise_templates_example():
         if template.primary_muscle_group:
             print(f"    Primary muscle: {template.primary_muscle_group}")
         if template.secondary_muscle_groups:
-            print(f"    Secondary muscles: {', '.join(template.secondary_muscle_groups)}")
+            print(
+                f"    Secondary muscles: {', '.join(template.secondary_muscle_groups)}"
+            )
 
     print()
 
@@ -102,7 +104,8 @@ def search_exercise_templates_example():
     # Search for exercises containing "bench"
     search_term = "bench"
     matching_exercises = [
-        template for template in templates.exercise_templates
+        template
+        for template in templates.exercise_templates
         if search_term.lower() in template.title.lower()
     ]
 
@@ -122,7 +125,8 @@ def filter_by_muscle_group_example():
 
     target_muscle = MuscleGroup.chest
     chest_exercises = [
-        template for template in templates.exercise_templates
+        template
+        for template in templates.exercise_templates
         if template.primary_muscle_group == target_muscle
     ]
 

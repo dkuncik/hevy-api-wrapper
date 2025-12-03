@@ -41,7 +41,9 @@ def get_exercise_history_example(exercise_template_id: str):
             if entry.weight_kg:
                 print(f"    Weight: {entry.weight_kg}kg x {entry.reps} reps")
             elif entry.distance_meters:
-                print(f"    Distance: {entry.distance_meters}m in {entry.duration_seconds}s")
+                print(
+                    f"    Distance: {entry.distance_meters}m in {entry.duration_seconds}s"
+                )
             elif entry.duration_seconds:
                 print(f"    Duration: {entry.duration_seconds}s")
 
@@ -72,20 +74,19 @@ def get_exercise_history_with_date_range_example(exercise_template_id: str):
         for entry in history.exercise_history:
             if entry.workout_id not in workouts:
                 workouts[entry.workout_id] = {
-                    'title': entry.workout_title,
-                    'date': entry.workout_start_time,
-                    'max_weight': 0
+                    "title": entry.workout_title,
+                    "date": entry.workout_start_time,
+                    "max_weight": 0,
                 }
             if entry.weight_kg:
-                workouts[entry.workout_id]['max_weight'] = max(
-                    workouts[entry.workout_id]['max_weight'],
-                    entry.weight_kg
+                workouts[entry.workout_id]["max_weight"] = max(
+                    workouts[entry.workout_id]["max_weight"], entry.weight_kg
                 )
 
         print("\nWorkouts in range:")
         for workout_id, data in workouts.items():
             print(f"  - {data['title']} ({data['date']})")
-            if data['max_weight'] > 0:
+            if data["max_weight"] > 0:
                 print(f"    Max weight: {data['max_weight']}kg")
 
     print()
@@ -165,7 +166,9 @@ def compare_recent_performance_example(exercise_template_id: str):
     previous_entries = []
 
     for entry in history.exercise_history:
-        entry_date = datetime.fromisoformat(entry.workout_start_time.replace("Z", "+00:00"))
+        entry_date = datetime.fromisoformat(
+            entry.workout_start_time.replace("Z", "+00:00")
+        )
         if entry_date >= cutoff_date:
             recent_entries.append(entry)
         else:
@@ -175,8 +178,12 @@ def compare_recent_performance_example(exercise_template_id: str):
     recent_workouts = set(entry.workout_id for entry in recent_entries)
     previous_workouts = set(entry.workout_id for entry in previous_entries)
 
-    print(f"Recent period (last 30 days): {len(recent_workouts)} workouts, {len(recent_entries)} sets")
-    print(f"Previous period (30-60 days ago): {len(previous_workouts)} workouts, {len(previous_entries)} sets")
+    print(
+        f"Recent period (last 30 days): {len(recent_workouts)} workouts, {len(recent_entries)} sets"
+    )
+    print(
+        f"Previous period (30-60 days ago): {len(previous_workouts)} workouts, {len(previous_entries)} sets"
+    )
 
     # Calculate average max weight per workout for each period
     def get_avg_max_weight_per_workout(entries):
@@ -187,10 +194,13 @@ def compare_recent_performance_example(exercise_template_id: str):
                     workout_max_weights[entry.workout_id] = entry.weight_kg
                 else:
                     workout_max_weights[entry.workout_id] = max(
-                        workout_max_weights[entry.workout_id],
-                        entry.weight_kg
+                        workout_max_weights[entry.workout_id], entry.weight_kg
                     )
-        return sum(workout_max_weights.values()) / len(workout_max_weights) if workout_max_weights else 0
+        return (
+            sum(workout_max_weights.values()) / len(workout_max_weights)
+            if workout_max_weights
+            else 0
+        )
 
     recent_avg_max = get_avg_max_weight_per_workout(recent_entries)
     previous_avg_max = get_avg_max_weight_per_workout(previous_entries)
@@ -220,9 +230,17 @@ def find_popular_exercises_example():
         try:
             history = client.exercise_history.get_exercise_history(template.id)
             # Count unique workouts
-            unique_workouts = set(entry.workout_id for entry in history.exercise_history)
+            unique_workouts = set(
+                entry.workout_id for entry in history.exercise_history
+            )
             if len(unique_workouts) > 0:
-                exercise_frequency.append((template.title, len(unique_workouts), len(history.exercise_history)))
+                exercise_frequency.append(
+                    (
+                        template.title,
+                        len(unique_workouts),
+                        len(history.exercise_history),
+                    )
+                )
         except Exception:
             # Skip exercises that have no history or error
             pass

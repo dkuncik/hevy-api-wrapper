@@ -23,4 +23,3 @@ poetry.lock
 htmlcov/
 test-results.xml
 coverage.xml
-
