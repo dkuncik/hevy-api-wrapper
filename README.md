@@ -184,6 +184,7 @@ body = PostWorkoutsRequestBody(
         description="Chest and triceps",
         start_time="2024-12-02T08:00:00Z",
         end_time="2024-12-02T09:30:00Z",
+        routine_id=None,  # Optional: set to None or omit to create workout without a routine
         exercises=[
             PostWorkoutsRequestExercise(
                 exercise_template_id="05293BCA",
@@ -410,13 +411,14 @@ except HevyApiError as e:
 
 Check out the [`examples/`](examples/) directory for complete working examples:
 
-- **[list_workouts.py](examples/list_workouts.py)** – List workouts with pagination and get total count
-- **[workout_events.py](examples/workout_events.py)** – Fetch workout events since a timestamp
-- **[create_workout.py](examples/create_workout.py)** – Create a new workout with exercises and sets
-- **[async_list_exercise_templates.py](examples/async_list_exercise_templates.py)** – Async example for listing exercise
-  templates
-- **[routines_and_folders.py](examples/routines_and_folders.py)** – List routines and routine folders
-- **[exercise_history.py](examples/exercise_history.py)** – Get exercise history for a specific template
+- **[workouts_example.py](examples/workouts_example.py)** – Comprehensive workout examples including list, create,
+  update, get by ID, get events, and get count
+- **[routines_example.py](examples/routines_example.py)** – Routine and routine folder examples including list, create,
+  update, and get by ID
+- **[exercise_templates_example.py](examples/exercise_templates_example.py)** – Exercise template examples including
+  list, create custom exercise, and get by ID
+- **[exercise_history_example.py](examples/exercise_history_example.py)** – Get exercise history for a specific template
+  with optional date filtering
 
 ### Running Examples
 
@@ -426,7 +428,7 @@ export HEVY_API_TOKEN=your_api_key_here  # Linux/macOS
 $env:HEVY_API_TOKEN = "your_api_key_here"  # PowerShell
 
 # Run an example
-python examples/list_workouts.py
+python examples/workouts_example.py
 ```
 
 ---
@@ -529,7 +531,18 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## 📊 Changelog
 
-### v0.1.0 (2024-12-02)
+### v1.0.1 (2025-12-03)
+
+- 🐛 Fixed `routine_id` handling in workout creation/update - now properly excludes empty strings from API requests
+- 🐛 Fixed response unwrapping for `update_workout()` - correctly handles nested workout array responses
+- 🐛 Fixed response unwrapping for routine folders - simplified to use consistent pattern
+- 🐛 Fixed timezone-aware datetime comparisons in exercise history filtering
+- 🐛 Fixed `PaginatedWorkoutEvents` model - correctly exposes `updated` and `deleted` lists
+- 📝 Updated all examples to use real exercise template IDs from API
+- 📝 Consolidated examples into 4 comprehensive files with detailed demonstrations
+- ✅ Updated test suite to reflect all API behavior changes
+
+### v1.0.0 (2025-12-02)
 
 - ✅ Initial release
 - ✅ Full API coverage: Workouts, Routines, Exercise Templates, Routine Folders, Exercise History
@@ -600,6 +613,44 @@ from hevy_api_wrapper.models import Workout, PaginatedWorkouts
 client: Client = Client.from_env()
 workouts: PaginatedWorkouts = client.workouts.get_workouts()
 workout: Workout = workouts.workouts[0]
+```
+
+### Working with Workout Events
+
+When using `get_events()`, the response contains lists of updated and deleted workouts:
+
+```python
+from datetime import datetime, timedelta
+
+# Get events from the last 7 days
+since = (datetime.now() - timedelta(days=7)).isoformat() + "Z"
+events = client.workouts.get_events(page=1, page_size=100, since=since)
+
+# Process updated workouts
+for workout in events.updated:
+    print(f"Updated: {workout.title} at {workout.updated_at}")
+
+# Process deleted workouts
+for deleted in events.deleted:
+    print(f"Deleted workout ID: {deleted.id} at {deleted.deleted_at}")
+```
+
+### Understanding API Response Structures
+
+Some API endpoints wrap responses in extra layers. The client automatically unwraps these:
+
+```python
+# When you call create_routine(), the API returns:
+# { "routine": { "id": "...", "title": "...", ... } }
+# 
+# The client automatically extracts and returns just the routine object
+routine = client.routines.create_routine(body)
+print(routine.title)  # Direct access to routine properties
+
+# Same for workouts in the update endpoint:
+# API returns: { "workout": [{ "id": "...", ... }] }
+# Client returns: Workout object
+workout = client.workouts.update_workout(workout_id, body)
 ```
 
 ---
