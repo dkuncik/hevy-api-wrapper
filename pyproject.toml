@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "hevy-api-wrapper"
-version = "1.0.1"
+version = "1.0.0"
 description = "Python API wrapper for the Hevy API (sync + async, typed models, retries, pagination)"
 authors = ["Dominic Kuncik <itsdomhd@gmail.com>"]
 license = "MIT"
