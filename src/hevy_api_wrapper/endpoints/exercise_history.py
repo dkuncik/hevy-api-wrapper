@@ -36,15 +36,11 @@ class ExerciseHistorySync:
             params["start_date"] = start_date
         if end_date is not None:
             params["end_date"] = end_date
-        resp = self._client._request(
-            "GET", f"/v1/exercise_history/{exercise_template_id}", params=params
-        )
+        resp = self._client._request("GET", f"/v1/exercise_history/{exercise_template_id}", params=params)
 
         data = resp.json()
         if resp.status_code >= 400:
-            message = (
-                data.get("message") if isinstance(data, dict) else None
-            ) or resp.text
+            message = (data.get("message") if isinstance(data, dict) else None) or resp.text
             code = data.get("code") if isinstance(data, dict) else None
             raise_for_status(
                 status_code=resp.status_code,
@@ -84,15 +80,11 @@ class ExerciseHistoryAsync:
             params["start_date"] = start_date
         if end_date is not None:
             params["end_date"] = end_date
-        resp = await self._client._request(
-            "GET", f"/v1/exercise_history/{exercise_template_id}", params=params
-        )
+        resp = await self._client._request("GET", f"/v1/exercise_history/{exercise_template_id}", params=params)
 
         data = resp.json()
         if resp.status_code >= 400:
-            message = (
-                data.get("message") if isinstance(data, dict) else None
-            ) or resp.text
+            message = (data.get("message") if isinstance(data, dict) else None) or resp.text
             code = data.get("code") if isinstance(data, dict) else None
             raise_for_status(
                 status_code=resp.status_code,

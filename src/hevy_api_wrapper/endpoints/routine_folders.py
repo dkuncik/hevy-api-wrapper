@@ -5,12 +5,7 @@ from __future__ import annotations
 from typing import Any, Dict, Optional
 
 from ..errors import raise_for_status
-from ..models import (
-    PaginatedRoutineFolders,
-    PostRoutineFolderRequestBody,
-    RoutineFolder,
-    RoutineFolderResponse,
-)
+from ..models import PaginatedRoutineFolders, PostRoutineFolderRequestBody, RoutineFolder, RoutineFolderResponse
 
 
 class RoutineFoldersSync:
@@ -19,9 +14,7 @@ class RoutineFoldersSync:
     def __init__(self, client: Any) -> None:
         self._client = client
 
-    def get_routine_folders(
-        self, *, page: Optional[int] = None, page_size: int = 5
-    ) -> PaginatedRoutineFolders:
+    def get_routine_folders(self, *, page: Optional[int] = None, page_size: int = 5) -> PaginatedRoutineFolders:
         """List routine folders with pagination.
 
         Args:
@@ -44,9 +37,7 @@ class RoutineFoldersSync:
 
         data = resp.json()
         if resp.status_code >= 400:
-            message = (
-                data.get("message") if isinstance(data, dict) else None
-            ) or resp.text
+            message = (data.get("message") if isinstance(data, dict) else None) or resp.text
             code = data.get("code") if isinstance(data, dict) else None
             raise_for_status(
                 status_code=resp.status_code,
@@ -57,9 +48,7 @@ class RoutineFoldersSync:
             )
         return PaginatedRoutineFolders(**data)
 
-    def create_routine_folder(
-        self, body: PostRoutineFolderRequestBody
-    ) -> RoutineFolder:
+    def create_routine_folder(self, body: PostRoutineFolderRequestBody) -> RoutineFolder:
         """Create a new routine folder.
 
         Args:
@@ -68,15 +57,11 @@ class RoutineFoldersSync:
         Returns:
             The created routine folder.
         """
-        resp = self._client._request(
-            "POST", "/v1/routine_folders", json=body.model_dump()
-        )
+        resp = self._client._request("POST", "/v1/routine_folders", json=body.model_dump())
 
         data = resp.json()
         if resp.status_code >= 400:
-            message = (
-                data.get("message") if isinstance(data, dict) else None
-            ) or resp.text
+            message = (data.get("message") if isinstance(data, dict) else None) or resp.text
             code = data.get("code") if isinstance(data, dict) else None
             raise_for_status(
                 status_code=resp.status_code,
@@ -100,9 +85,7 @@ class RoutineFoldersSync:
 
         data = resp.json()
         if resp.status_code >= 400:
-            message = (
-                data.get("message") if isinstance(data, dict) else None
-            ) or resp.text
+            message = (data.get("message") if isinstance(data, dict) else None) or resp.text
             code = data.get("code") if isinstance(data, dict) else None
             raise_for_status(
                 status_code=resp.status_code,
@@ -120,9 +103,7 @@ class RoutineFoldersAsync:
     def __init__(self, client: Any) -> None:
         self._client = client
 
-    async def get_routine_folders(
-        self, *, page: Optional[int] = None, page_size: int = 5
-    ) -> PaginatedRoutineFolders:
+    async def get_routine_folders(self, *, page: Optional[int] = None, page_size: int = 5) -> PaginatedRoutineFolders:
         """List routine folders with pagination.
 
         Args:
@@ -145,9 +126,7 @@ class RoutineFoldersAsync:
 
         data = resp.json()
         if resp.status_code >= 400:
-            message = (
-                data.get("message") if isinstance(data, dict) else None
-            ) or resp.text
+            message = (data.get("message") if isinstance(data, dict) else None) or resp.text
             code = data.get("code") if isinstance(data, dict) else None
             raise_for_status(
                 status_code=resp.status_code,
@@ -158,9 +137,7 @@ class RoutineFoldersAsync:
             )
         return PaginatedRoutineFolders(**data)
 
-    async def create_routine_folder(
-        self, body: PostRoutineFolderRequestBody
-    ) -> RoutineFolder:
+    async def create_routine_folder(self, body: PostRoutineFolderRequestBody) -> RoutineFolder:
         """Create a new routine folder.
 
         Args:
@@ -169,15 +146,11 @@ class RoutineFoldersAsync:
         Returns:
             The created routine folder.
         """
-        resp = await self._client._request(
-            "POST", "/v1/routine_folders", json=body.model_dump()
-        )
+        resp = await self._client._request("POST", "/v1/routine_folders", json=body.model_dump())
 
         data = resp.json()
         if resp.status_code >= 400:
-            message = (
-                data.get("message") if isinstance(data, dict) else None
-            ) or resp.text
+            message = (data.get("message") if isinstance(data, dict) else None) or resp.text
             code = data.get("code") if isinstance(data, dict) else None
             raise_for_status(
                 status_code=resp.status_code,
@@ -201,9 +174,7 @@ class RoutineFoldersAsync:
 
         data = resp.json()
         if resp.status_code >= 400:
-            message = (
-                data.get("message") if isinstance(data, dict) else None
-            ) or resp.text
+            message = (data.get("message") if isinstance(data, dict) else None) or resp.text
             code = data.get("code") if isinstance(data, dict) else None
             raise_for_status(
                 status_code=resp.status_code,

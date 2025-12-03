@@ -139,15 +139,11 @@ def test_workouts_endpoints_sync():
         },
     )
     # Create - API returns workout wrapped in array
-    respx.post(f"{BASE}/v1/workouts").respond(
-        201, json={"workout": [sample_workout_json()]}
-    )
+    respx.post(f"{BASE}/v1/workouts").respond(201, json={"workout": [sample_workout_json()]})
     # Get single
     respx.get(f"{BASE}/v1/workouts/w-1").respond(200, json=sample_workout_json())
     # Update - API returns workout wrapped in array
-    respx.put(f"{BASE}/v1/workouts/w-1").respond(
-        200, json={"workout": [sample_workout_json()]}
-    )
+    respx.put(f"{BASE}/v1/workouts/w-1").respond(200, json={"workout": [sample_workout_json()]})
     # Events
     respx.get(f"{BASE}/v1/workouts/events").respond(
         200,
@@ -181,9 +177,7 @@ def test_workouts_endpoints_sync():
                     exercise_template_id="05293BCA",
                     superset_id=None,
                     notes=None,
-                    sets=[
-                        PostWorkoutsRequestSet(type="normal", weight_kg=100, reps=10)
-                    ],
+                    sets=[PostWorkoutsRequestSet(type="normal", weight_kg=100, reps=10)],
                 )
             ],
         )
@@ -218,16 +212,10 @@ def test_routines_endpoints_sync():
         },
     )
     # Create - API returns routine wrapped in array
-    respx.post(f"{BASE}/v1/routines").respond(
-        201, json={"routine": [sample_routine_json()]}
-    )
-    respx.get(f"{BASE}/v1/routines/r-1").respond(
-        200, json={"routine": sample_routine_json()}
-    )
+    respx.post(f"{BASE}/v1/routines").respond(201, json={"routine": [sample_routine_json()]})
+    respx.get(f"{BASE}/v1/routines/r-1").respond(200, json={"routine": sample_routine_json()})
     # Update - API returns routine wrapped in array
-    respx.put(f"{BASE}/v1/routines/r-1").respond(
-        200, json={"routine": [sample_routine_json()]}
-    )
+    respx.put(f"{BASE}/v1/routines/r-1").respond(200, json={"routine": [sample_routine_json()]})
 
     c = Client(api_key="test-key")
 
@@ -245,9 +233,7 @@ def test_routines_endpoints_sync():
                     superset_id=None,
                     rest_seconds=60,
                     notes=None,
-                    sets=[
-                        PostRoutinesRequestSet(type="normal", weight_kg=100, reps=10)
-                    ],
+                    sets=[PostRoutinesRequestSet(type="normal", weight_kg=100, reps=10)],
                 )
             ],
         )
@@ -292,9 +278,7 @@ def test_exercise_templates_endpoints_sync():
         },
     )
     respx.post(f"{BASE}/v1/exercise_templates").respond(200, json={"id": 123})
-    respx.get(f"{BASE}/v1/exercise_templates/T-1").respond(
-        200, json=sample_exercise_template_json()
-    )
+    respx.get(f"{BASE}/v1/exercise_templates/T-1").respond(200, json=sample_exercise_template_json())
 
     c = Client(api_key="test-key")
 
@@ -367,9 +351,7 @@ def test_routine_folders_endpoints_sync():
     page = c.routine_folders.get_routine_folders(page=1, page_size=5)
     assert len(page.routine_folders) == 1
 
-    body = PostRoutineFolderRequestBody(
-        routine_folder=PostRoutineFolder(title="New Folder")
-    )
+    body = PostRoutineFolderRequestBody(routine_folder=PostRoutineFolder(title="New Folder"))
     created = c.routine_folders.create_routine_folder(body)
     assert created.id == 100
 
@@ -381,9 +363,7 @@ def test_routine_folders_endpoints_sync():
 
 @respx.mock
 def test_exercise_history_endpoint_sync():
-    respx.get(f"{BASE}/v1/exercise_history/05293BCA").respond(
-        200, json=sample_exercise_history_json()
-    )
+    respx.get(f"{BASE}/v1/exercise_history/05293BCA").respond(200, json=sample_exercise_history_json())
 
     c = Client(api_key="test-key")
     hist = c.exercise_history.get_exercise_history("05293BCA")
@@ -393,9 +373,7 @@ def test_exercise_history_endpoint_sync():
 
 @respx.mock
 def test_not_found_raises_error_sync():
-    respx.get(f"{BASE}/v1/workouts/does-not-exist").respond(
-        404, json={"message": "not found"}
-    )
+    respx.get(f"{BASE}/v1/workouts/does-not-exist").respond(404, json={"message": "not found"})
 
     c = Client(api_key="test-key")
     with pytest.raises(NotFoundError):

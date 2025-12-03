@@ -72,9 +72,7 @@ def create_routine_example():
     exercise_2 = templates.exercise_templates[1]
     exercise_3 = templates.exercise_templates[2]
 
-    print(
-        f"Using exercises: {exercise_1.title}, {exercise_2.title}, {exercise_3.title}"
-    )
+    print(f"Using exercises: {exercise_1.title}, {exercise_2.title}, {exercise_3.title}")
 
     routine_data = PostRoutinesRequestBodyRoutine(
         title="Full Body Workout",
@@ -194,9 +192,7 @@ def get_routine_example(routine_id: str):
         print(f"  - Exercise: {exercise.title}")
         print(f"    Sets: {len(exercise.sets)}")
         for set_data in exercise.sets:
-            print(
-                f"      {set_data.type}: {set_data.weight_kg}kg x {set_data.reps} reps"
-            )
+            print(f"      {set_data.type}: {set_data.weight_kg}kg x {set_data.reps} reps")
 
     print()
 
@@ -209,17 +205,11 @@ def update_routine_example(routine_id: str):
     existing_routine = client.routines.get_routine(routine_id).routine
 
     # Use the first exercise from the existing routine if available
-    exercise_id = (
-        existing_routine.exercises[0].exercise_template_id
-        if existing_routine.exercises
-        else None
-    )
+    exercise_id = existing_routine.exercises[0].exercise_template_id if existing_routine.exercises else None
 
     if not exercise_id:
         # Fallback: get a valid exercise ID
-        templates = client.exercise_templates.get_exercise_templates(
-            page=1, page_size=1
-        )
+        templates = client.exercise_templates.get_exercise_templates(page=1, page_size=1)
         exercise_id = templates.exercise_templates[0].id
 
     # Update with modified data

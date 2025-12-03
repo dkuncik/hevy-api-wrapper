@@ -45,9 +45,7 @@ def list_exercise_templates_example():
         if template.primary_muscle_group:
             print(f"    Primary muscle: {template.primary_muscle_group}")
         if template.secondary_muscle_groups:
-            print(
-                f"    Secondary muscles: {', '.join(template.secondary_muscle_groups)}"
-            )
+            print(f"    Secondary muscles: {', '.join(template.secondary_muscle_groups)}")
 
     print()
 
@@ -104,9 +102,7 @@ def search_exercise_templates_example():
     # Search for exercises containing "bench"
     search_term = "bench"
     matching_exercises = [
-        template
-        for template in templates.exercise_templates
-        if search_term.lower() in template.title.lower()
+        template for template in templates.exercise_templates if search_term.lower() in template.title.lower()
     ]
 
     print(f"Found {len(matching_exercises)} exercises matching '{search_term}':")
@@ -125,9 +121,7 @@ def filter_by_muscle_group_example():
 
     target_muscle = MuscleGroup.chest
     chest_exercises = [
-        template
-        for template in templates.exercise_templates
-        if template.primary_muscle_group == target_muscle
+        template for template in templates.exercise_templates if template.primary_muscle_group == target_muscle
     ]
 
     print(f"Found {len(chest_exercises)} exercises targeting {target_muscle}:")

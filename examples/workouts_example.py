@@ -147,9 +147,7 @@ def get_workout_example(workout_id: str):
         print(f"  - Exercise: {exercise.title}")
         print(f"    Sets: {len(exercise.sets)}")
         for set_data in exercise.sets:
-            print(
-                f"      {set_data.type}: {set_data.weight_kg}kg x {set_data.reps} reps"
-            )
+            print(f"      {set_data.type}: {set_data.weight_kg}kg x {set_data.reps} reps")
 
     print()
 
@@ -166,9 +164,7 @@ def update_workout_example(workout_id: str):
         exercise_template_id = existing_workout.exercises[0].exercise_template_id
     else:
         # Fallback: fetch from API
-        templates = client.exercise_templates.get_exercise_templates(
-            page=1, page_size=1
-        )
+        templates = client.exercise_templates.get_exercise_templates(page=1, page_size=1)
         exercise_template_id = templates.exercise_templates[0].id
 
     # Update with modified data

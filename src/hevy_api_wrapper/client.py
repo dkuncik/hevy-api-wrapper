@@ -148,10 +148,7 @@ class Client(_BaseClient):
                 httpx.Response,
                 self._client.request(method, url, headers=merged_headers, **kwargs),
             )
-            if (
-                resp.status_code in (429, 500, 502, 503, 504)
-                and retries < self.config.max_retries
-            ):
+            if resp.status_code in (429, 500, 502, 503, 504) and retries < self.config.max_retries:
                 retries += 1
                 sleep_time = self.config.backoff_factor * (2 ** (retries - 1))
                 time.sleep(sleep_time)
@@ -218,9 +215,7 @@ class AsyncClient(_BaseClient):
         self.exercise_history = _endpoints.ExerciseHistoryAsync(self)
 
     @classmethod
-    def from_env(
-        cls, *, env_var: str = "HEVY_API_TOKEN", **kwargs: Any
-    ) -> "AsyncClient":
+    def from_env(cls, *, env_var: str = "HEVY_API_TOKEN", **kwargs: Any) -> "AsyncClient":
         """Create async client from environment variable.
 
         Args:
@@ -252,14 +247,9 @@ class AsyncClient(_BaseClient):
         while True:
             resp = cast(
                 httpx.Response,
-                await self._client.request(
-                    method, url, headers=merged_headers, **kwargs
-                ),
+                await self._client.request(method, url, headers=merged_headers, **kwargs),
             )
-            if (
-                resp.status_code in (429, 500, 502, 503, 504)
-                and retries < self.config.max_retries
-            ):
+            if resp.status_code in (429, 500, 502, 503, 504) and retries < self.config.max_retries:
                 retries += 1
                 sleep_time = self.config.backoff_factor * (2 ** (retries - 1))
                 await asyncio.sleep(sleep_time)
