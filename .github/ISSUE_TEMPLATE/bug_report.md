@@ -1,5 +1,4 @@
 ---
-(Optional) If you have an idea of what might be causing the issue or how to fix it.
 about: Report a bug or unexpected behavior
 title: '[BUG] '
 labels: bug
