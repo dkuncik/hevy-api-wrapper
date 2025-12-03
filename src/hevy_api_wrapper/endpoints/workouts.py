@@ -20,7 +20,7 @@ class WorkoutsSync:
         self._client = client
 
     def get_workouts(
-            self, *, page: Optional[int] = None, page_size: int = 5
+        self, *, page: Optional[int] = None, page_size: int = 5
     ) -> PaginatedWorkouts:
         """List workouts with pagination.
 
@@ -45,8 +45,8 @@ class WorkoutsSync:
         data = resp.json()
         if resp.status_code >= 400:
             message = (
-                          data.get("message") if isinstance(data, dict) else None
-                      ) or resp.text
+                data.get("message") if isinstance(data, dict) else None
+            ) or resp.text
             code = data.get("code") if isinstance(data, dict) else None
             raise_for_status(
                 status_code=resp.status_code,
@@ -73,8 +73,8 @@ class WorkoutsSync:
         data = resp.json()
         if resp.status_code >= 400:
             message = (
-                          data.get("message") if isinstance(data, dict) else None
-                      ) or resp.text
+                data.get("message") if isinstance(data, dict) else None
+            ) or resp.text
             code = data.get("code") if isinstance(data, dict) else None
             raise_for_status(
                 status_code=resp.status_code,
@@ -104,8 +104,8 @@ class WorkoutsSync:
         data = resp.json()
         if resp.status_code >= 400:
             message = (
-                          data.get("message") if isinstance(data, dict) else None
-                      ) or resp.text
+                data.get("message") if isinstance(data, dict) else None
+            ) or resp.text
             code = data.get("code") if isinstance(data, dict) else None
             raise_for_status(
                 status_code=resp.status_code,
@@ -133,8 +133,8 @@ class WorkoutsSync:
         data = resp.json()
         if resp.status_code >= 400:
             message = (
-                          data.get("message") if isinstance(data, dict) else None
-                      ) or resp.text
+                data.get("message") if isinstance(data, dict) else None
+            ) or resp.text
             code = data.get("code") if isinstance(data, dict) else None
             raise_for_status(
                 status_code=resp.status_code,
@@ -151,11 +151,11 @@ class WorkoutsSync:
         return Workout(**data)
 
     def get_events(
-            self,
-            *,
-            page: Optional[int] = None,
-            page_size: int = 5,
-            since: str = "1970-01-01T00:00:00Z",
+        self,
+        *,
+        page: Optional[int] = None,
+        page_size: int = 5,
+        since: str = "1970-01-01T00:00:00Z",
     ) -> PaginatedWorkoutEvents:
         """Get workout change events since a timestamp.
 
@@ -182,8 +182,8 @@ class WorkoutsSync:
         data = resp.json()
         if resp.status_code >= 400:
             message = (
-                          data.get("message") if isinstance(data, dict) else None
-                      ) or resp.text
+                data.get("message") if isinstance(data, dict) else None
+            ) or resp.text
             code = data.get("code") if isinstance(data, dict) else None
             raise_for_status(
                 status_code=resp.status_code,
@@ -205,8 +205,8 @@ class WorkoutsSync:
         data = resp.json()
         if resp.status_code >= 400:
             message = (
-                          data.get("message") if isinstance(data, dict) else None
-                      ) or resp.text
+                data.get("message") if isinstance(data, dict) else None
+            ) or resp.text
             code = data.get("code") if isinstance(data, dict) else None
             raise_for_status(
                 status_code=resp.status_code,
@@ -225,7 +225,7 @@ class WorkoutsAsync:
         self._client = client
 
     async def get_workouts(
-            self, *, page: Optional[int] = None, page_size: int = 5
+        self, *, page: Optional[int] = None, page_size: int = 5
     ) -> PaginatedWorkouts:
         """List workouts with pagination.
 
@@ -250,8 +250,8 @@ class WorkoutsAsync:
         data = resp.json()
         if resp.status_code >= 400:
             message = (
-                          data.get("message") if isinstance(data, dict) else None
-                      ) or resp.text
+                data.get("message") if isinstance(data, dict) else None
+            ) or resp.text
             code = data.get("code") if isinstance(data, dict) else None
             raise_for_status(
                 status_code=resp.status_code,
@@ -278,8 +278,8 @@ class WorkoutsAsync:
         data = resp.json()
         if resp.status_code >= 400:
             message = (
-                          data.get("message") if isinstance(data, dict) else None
-                      ) or resp.text
+                data.get("message") if isinstance(data, dict) else None
+            ) or resp.text
             code = data.get("code") if isinstance(data, dict) else None
             raise_for_status(
                 status_code=resp.status_code,
@@ -309,8 +309,8 @@ class WorkoutsAsync:
         data = resp.json()
         if resp.status_code >= 400:
             message = (
-                          data.get("message") if isinstance(data, dict) else None
-                      ) or resp.text
+                data.get("message") if isinstance(data, dict) else None
+            ) or resp.text
             code = data.get("code") if isinstance(data, dict) else None
             raise_for_status(
                 status_code=resp.status_code,
@@ -322,7 +322,7 @@ class WorkoutsAsync:
         return Workout(**data)
 
     async def update_workout(
-            self, workout_id: str, body: PostWorkoutsRequestBody
+        self, workout_id: str, body: PostWorkoutsRequestBody
     ) -> Workout:
         """Update an existing workout.
 
@@ -340,8 +340,8 @@ class WorkoutsAsync:
         data = resp.json()
         if resp.status_code >= 400:
             message = (
-                          data.get("message") if isinstance(data, dict) else None
-                      ) or resp.text
+                data.get("message") if isinstance(data, dict) else None
+            ) or resp.text
             code = data.get("code") if isinstance(data, dict) else None
             raise_for_status(
                 status_code=resp.status_code,
@@ -358,11 +358,11 @@ class WorkoutsAsync:
         return Workout(**data)
 
     async def get_events(
-            self,
-            *,
-            page: Optional[int] = None,
-            page_size: int = 5,
-            since: str = "1970-01-01T00:00:00Z",
+        self,
+        *,
+        page: Optional[int] = None,
+        page_size: int = 5,
+        since: str = "1970-01-01T00:00:00Z",
     ) -> PaginatedWorkoutEvents:
         """Get workout change events since a timestamp.
 
@@ -389,8 +389,8 @@ class WorkoutsAsync:
         data = resp.json()
         if resp.status_code >= 400:
             message = (
-                          data.get("message") if isinstance(data, dict) else None
-                      ) or resp.text
+                data.get("message") if isinstance(data, dict) else None
+            ) or resp.text
             code = data.get("code") if isinstance(data, dict) else None
             raise_for_status(
                 status_code=resp.status_code,
@@ -412,8 +412,8 @@ class WorkoutsAsync:
         data = resp.json()
         if resp.status_code >= 400:
             message = (
-                          data.get("message") if isinstance(data, dict) else None
-                      ) or resp.text
+                data.get("message") if isinstance(data, dict) else None
+            ) or resp.text
             code = data.get("code") if isinstance(data, dict) else None
             raise_for_status(
                 status_code=resp.status_code,

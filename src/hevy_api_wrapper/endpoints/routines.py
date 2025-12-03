@@ -22,7 +22,7 @@ class RoutinesSync:
         self._client = client
 
     def get_routines(
-            self, *, page: Optional[int] = None, page_size: int = 5
+        self, *, page: Optional[int] = None, page_size: int = 5
     ) -> PaginatedRoutines:
         """List routines with pagination.
 
@@ -47,8 +47,8 @@ class RoutinesSync:
         data = resp.json()
         if resp.status_code >= 400:
             message = (
-                          data.get("message") if isinstance(data, dict) else None
-                      ) or resp.text
+                data.get("message") if isinstance(data, dict) else None
+            ) or resp.text
             code = data.get("code") if isinstance(data, dict) else None
             raise_for_status(
                 status_code=resp.status_code,
@@ -73,8 +73,8 @@ class RoutinesSync:
         data = resp.json()
         if resp.status_code >= 400:
             message = (
-                          data.get("message") if isinstance(data, dict) else None
-                      ) or resp.text
+                data.get("message") if isinstance(data, dict) else None
+            ) or resp.text
             code = data.get("code") if isinstance(data, dict) else None
             raise_for_status(
                 status_code=resp.status_code,
@@ -99,8 +99,8 @@ class RoutinesSync:
         data = resp.json()
         if resp.status_code >= 400:
             message = (
-                          data.get("message") if isinstance(data, dict) else None
-                      ) or resp.text
+                data.get("message") if isinstance(data, dict) else None
+            ) or resp.text
             code = data.get("code") if isinstance(data, dict) else None
             raise_for_status(
                 status_code=resp.status_code,
@@ -128,8 +128,8 @@ class RoutinesSync:
         data = resp.json()
         if resp.status_code >= 400:
             message = (
-                          data.get("message") if isinstance(data, dict) else None
-                      ) or resp.text
+                data.get("message") if isinstance(data, dict) else None
+            ) or resp.text
             code = data.get("code") if isinstance(data, dict) else None
             raise_for_status(
                 status_code=resp.status_code,
@@ -148,7 +148,7 @@ class RoutinesAsync:
         self._client = client
 
     async def get_routines(
-            self, *, page: Optional[int] = None, page_size: int = 5
+        self, *, page: Optional[int] = None, page_size: int = 5
     ) -> PaginatedRoutines:
         """List routines with pagination.
 
@@ -173,8 +173,8 @@ class RoutinesAsync:
         data = resp.json()
         if resp.status_code >= 400:
             message = (
-                          data.get("message") if isinstance(data, dict) else None
-                      ) or resp.text
+                data.get("message") if isinstance(data, dict) else None
+            ) or resp.text
             code = data.get("code") if isinstance(data, dict) else None
             raise_for_status(
                 status_code=resp.status_code,
@@ -201,8 +201,8 @@ class RoutinesAsync:
         data = resp.json()
         if resp.status_code >= 400:
             message = (
-                          data.get("message") if isinstance(data, dict) else None
-                      ) or resp.text
+                data.get("message") if isinstance(data, dict) else None
+            ) or resp.text
             code = data.get("code") if isinstance(data, dict) else None
             raise_for_status(
                 status_code=resp.status_code,
@@ -227,8 +227,8 @@ class RoutinesAsync:
         data = resp.json()
         if resp.status_code >= 400:
             message = (
-                          data.get("message") if isinstance(data, dict) else None
-                      ) or resp.text
+                data.get("message") if isinstance(data, dict) else None
+            ) or resp.text
             code = data.get("code") if isinstance(data, dict) else None
             raise_for_status(
                 status_code=resp.status_code,
@@ -240,7 +240,7 @@ class RoutinesAsync:
         return RoutineResponse(**data)
 
     async def update_routine(
-            self, routine_id: str, body: PutRoutinesRequestBody
+        self, routine_id: str, body: PutRoutinesRequestBody
     ) -> Routine:
         """Update an existing routine.
 
@@ -258,8 +258,8 @@ class RoutinesAsync:
         data = resp.json()
         if resp.status_code >= 400:
             message = (
-                          data.get("message") if isinstance(data, dict) else None
-                      ) or resp.text
+                data.get("message") if isinstance(data, dict) else None
+            ) or resp.text
             code = data.get("code") if isinstance(data, dict) else None
             raise_for_status(
                 status_code=resp.status_code,

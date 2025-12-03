@@ -16,13 +16,13 @@ class HevyApiError(Exception):
     """
 
     def __init__(
-            self,
-            message: str,
-            *,
-            status_code: Optional[int] = None,
-            error_code: Optional[str] = None,
-            details: Optional[Any] = None,
-            request_id: Optional[str] = None,
+        self,
+        message: str,
+        *,
+        status_code: Optional[int] = None,
+        error_code: Optional[str] = None,
+        details: Optional[Any] = None,
+        request_id: Optional[str] = None,
     ) -> None:
         super().__init__(message)
         self.status_code = status_code
@@ -62,12 +62,12 @@ class ValidationError(HevyApiError):
 
 
 def raise_for_status(
-        *,
-        status_code: int,
-        message: str,
-        error_code: Optional[str] = None,
-        details: Optional[Any] = None,
-        request_id: Optional[str] = None,
+    *,
+    status_code: int,
+    message: str,
+    error_code: Optional[str] = None,
+    details: Optional[Any] = None,
+    request_id: Optional[str] = None,
 ) -> None:
     """Raise appropriate exception based on HTTP status code.
 

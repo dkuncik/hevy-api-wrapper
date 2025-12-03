@@ -20,7 +20,7 @@ class RoutineFoldersSync:
         self._client = client
 
     def get_routine_folders(
-            self, *, page: Optional[int] = None, page_size: int = 5
+        self, *, page: Optional[int] = None, page_size: int = 5
     ) -> PaginatedRoutineFolders:
         """List routine folders with pagination.
 
@@ -45,8 +45,8 @@ class RoutineFoldersSync:
         data = resp.json()
         if resp.status_code >= 400:
             message = (
-                          data.get("message") if isinstance(data, dict) else None
-                      ) or resp.text
+                data.get("message") if isinstance(data, dict) else None
+            ) or resp.text
             code = data.get("code") if isinstance(data, dict) else None
             raise_for_status(
                 status_code=resp.status_code,
@@ -58,7 +58,7 @@ class RoutineFoldersSync:
         return PaginatedRoutineFolders(**data)
 
     def create_routine_folder(
-            self, body: PostRoutineFolderRequestBody
+        self, body: PostRoutineFolderRequestBody
     ) -> RoutineFolder:
         """Create a new routine folder.
 
@@ -75,8 +75,8 @@ class RoutineFoldersSync:
         data = resp.json()
         if resp.status_code >= 400:
             message = (
-                          data.get("message") if isinstance(data, dict) else None
-                      ) or resp.text
+                data.get("message") if isinstance(data, dict) else None
+            ) or resp.text
             code = data.get("code") if isinstance(data, dict) else None
             raise_for_status(
                 status_code=resp.status_code,
@@ -101,8 +101,8 @@ class RoutineFoldersSync:
         data = resp.json()
         if resp.status_code >= 400:
             message = (
-                          data.get("message") if isinstance(data, dict) else None
-                      ) or resp.text
+                data.get("message") if isinstance(data, dict) else None
+            ) or resp.text
             code = data.get("code") if isinstance(data, dict) else None
             raise_for_status(
                 status_code=resp.status_code,
@@ -121,7 +121,7 @@ class RoutineFoldersAsync:
         self._client = client
 
     async def get_routine_folders(
-            self, *, page: Optional[int] = None, page_size: int = 5
+        self, *, page: Optional[int] = None, page_size: int = 5
     ) -> PaginatedRoutineFolders:
         """List routine folders with pagination.
 
@@ -146,8 +146,8 @@ class RoutineFoldersAsync:
         data = resp.json()
         if resp.status_code >= 400:
             message = (
-                          data.get("message") if isinstance(data, dict) else None
-                      ) or resp.text
+                data.get("message") if isinstance(data, dict) else None
+            ) or resp.text
             code = data.get("code") if isinstance(data, dict) else None
             raise_for_status(
                 status_code=resp.status_code,
@@ -159,7 +159,7 @@ class RoutineFoldersAsync:
         return PaginatedRoutineFolders(**data)
 
     async def create_routine_folder(
-            self, body: PostRoutineFolderRequestBody
+        self, body: PostRoutineFolderRequestBody
     ) -> RoutineFolder:
         """Create a new routine folder.
 
@@ -176,8 +176,8 @@ class RoutineFoldersAsync:
         data = resp.json()
         if resp.status_code >= 400:
             message = (
-                          data.get("message") if isinstance(data, dict) else None
-                      ) or resp.text
+                data.get("message") if isinstance(data, dict) else None
+            ) or resp.text
             code = data.get("code") if isinstance(data, dict) else None
             raise_for_status(
                 status_code=resp.status_code,
@@ -202,8 +202,8 @@ class RoutineFoldersAsync:
         data = resp.json()
         if resp.status_code >= 400:
             message = (
-                          data.get("message") if isinstance(data, dict) else None
-                      ) or resp.text
+                data.get("message") if isinstance(data, dict) else None
+            ) or resp.text
             code = data.get("code") if isinstance(data, dict) else None
             raise_for_status(
                 status_code=resp.status_code,

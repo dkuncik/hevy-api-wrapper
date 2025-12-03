@@ -70,15 +70,15 @@ class Client(_BaseClient):
     """
 
     def __init__(
-            self,
-            *,
-            base_url: str = DEFAULT_BASE_URL,
-            api_key: Optional[str] = None,
-            api_key_header: str = DEFAULT_API_KEY_HEADER,
-            timeout: float = 30.0,
-            max_retries: int = 3,
-            backoff_factor: float = 0.5,
-            transport: Optional[httpx.BaseTransport] = None,
+        self,
+        *,
+        base_url: str = DEFAULT_BASE_URL,
+        api_key: Optional[str] = None,
+        api_key_header: str = DEFAULT_API_KEY_HEADER,
+        timeout: float = 30.0,
+        max_retries: int = 3,
+        backoff_factor: float = 0.5,
+        transport: Optional[httpx.BaseTransport] = None,
     ) -> None:
         """Initialize the synchronous client.
 
@@ -149,8 +149,8 @@ class Client(_BaseClient):
                 self._client.request(method, url, headers=merged_headers, **kwargs),
             )
             if (
-                    resp.status_code in (429, 500, 502, 503, 504)
-                    and retries < self.config.max_retries
+                resp.status_code in (429, 500, 502, 503, 504)
+                and retries < self.config.max_retries
             ):
                 retries += 1
                 sleep_time = self.config.backoff_factor * (2 ** (retries - 1))
@@ -174,15 +174,15 @@ class AsyncClient(_BaseClient):
     """
 
     def __init__(
-            self,
-            *,
-            base_url: str = DEFAULT_BASE_URL,
-            api_key: Optional[str] = None,
-            api_key_header: str = DEFAULT_API_KEY_HEADER,
-            timeout: float = 30.0,
-            max_retries: int = 3,
-            backoff_factor: float = 0.5,
-            transport: Optional[httpx.AsyncBaseTransport] = None,
+        self,
+        *,
+        base_url: str = DEFAULT_BASE_URL,
+        api_key: Optional[str] = None,
+        api_key_header: str = DEFAULT_API_KEY_HEADER,
+        timeout: float = 30.0,
+        max_retries: int = 3,
+        backoff_factor: float = 0.5,
+        transport: Optional[httpx.AsyncBaseTransport] = None,
     ) -> None:
         """Initialize the asynchronous client.
 
@@ -219,7 +219,7 @@ class AsyncClient(_BaseClient):
 
     @classmethod
     def from_env(
-            cls, *, env_var: str = "HEVY_API_TOKEN", **kwargs: Any
+        cls, *, env_var: str = "HEVY_API_TOKEN", **kwargs: Any
     ) -> "AsyncClient":
         """Create async client from environment variable.
 
@@ -257,8 +257,8 @@ class AsyncClient(_BaseClient):
                 ),
             )
             if (
-                    resp.status_code in (429, 500, 502, 503, 504)
-                    and retries < self.config.max_retries
+                resp.status_code in (429, 500, 502, 503, 504)
+                and retries < self.config.max_retries
             ):
                 retries += 1
                 sleep_time = self.config.backoff_factor * (2 ** (retries - 1))

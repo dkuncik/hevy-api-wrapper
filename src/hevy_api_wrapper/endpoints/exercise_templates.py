@@ -20,7 +20,7 @@ class ExerciseTemplatesSync:
         self._client = client
 
     def get_exercise_templates(
-            self, *, page: Optional[int] = None, page_size: int = 5
+        self, *, page: Optional[int] = None, page_size: int = 5
     ) -> PaginatedExerciseTemplates:
         """List exercise templates with pagination.
 
@@ -45,8 +45,8 @@ class ExerciseTemplatesSync:
         data = resp.json()
         if resp.status_code >= 400:
             message = (
-                          data.get("message") if isinstance(data, dict) else None
-                      ) or resp.text
+                data.get("message") if isinstance(data, dict) else None
+            ) or resp.text
             code = data.get("code") if isinstance(data, dict) else None
             raise_for_status(
                 status_code=resp.status_code,
@@ -58,7 +58,7 @@ class ExerciseTemplatesSync:
         return PaginatedExerciseTemplates(**data)
 
     def create_custom_exercise(
-            self, body: CreateCustomExerciseRequestBody
+        self, body: CreateCustomExerciseRequestBody
     ) -> CreateCustomExerciseResponse:
         """Create a custom exercise template.
 
@@ -76,8 +76,8 @@ class ExerciseTemplatesSync:
             try:
                 data = resp.json()
                 message = (
-                              data.get("message") if isinstance(data, dict) else None
-                          ) or resp.text
+                    data.get("message") if isinstance(data, dict) else None
+                ) or resp.text
                 code = data.get("code") if isinstance(data, dict) else None
             except Exception:
                 data = {}
@@ -115,8 +115,8 @@ class ExerciseTemplatesSync:
         data = resp.json()
         if resp.status_code >= 400:
             message = (
-                          data.get("message") if isinstance(data, dict) else None
-                      ) or resp.text
+                data.get("message") if isinstance(data, dict) else None
+            ) or resp.text
             code = data.get("code") if isinstance(data, dict) else None
             raise_for_status(
                 status_code=resp.status_code,
@@ -135,7 +135,7 @@ class ExerciseTemplatesAsync:
         self._client = client
 
     async def get_exercise_templates(
-            self, *, page: Optional[int] = None, page_size: int = 5
+        self, *, page: Optional[int] = None, page_size: int = 5
     ) -> PaginatedExerciseTemplates:
         """List exercise templates with pagination.
 
@@ -162,8 +162,8 @@ class ExerciseTemplatesAsync:
         data = resp.json()
         if resp.status_code >= 400:
             message = (
-                          data.get("message") if isinstance(data, dict) else None
-                      ) or resp.text
+                data.get("message") if isinstance(data, dict) else None
+            ) or resp.text
             code = data.get("code") if isinstance(data, dict) else None
             raise_for_status(
                 status_code=resp.status_code,
@@ -175,7 +175,7 @@ class ExerciseTemplatesAsync:
         return PaginatedExerciseTemplates(**data)
 
     async def create_custom_exercise(
-            self, body: CreateCustomExerciseRequestBody
+        self, body: CreateCustomExerciseRequestBody
     ) -> CreateCustomExerciseResponse:
         """Create a custom exercise template.
 
@@ -193,8 +193,8 @@ class ExerciseTemplatesAsync:
             try:
                 data = resp.json()
                 message = (
-                              data.get("message") if isinstance(data, dict) else None
-                          ) or resp.text
+                    data.get("message") if isinstance(data, dict) else None
+                ) or resp.text
                 code = data.get("code") if isinstance(data, dict) else None
             except Exception:
                 data = {}
@@ -217,7 +217,7 @@ class ExerciseTemplatesAsync:
             return CreateCustomExerciseResponse(id=resp.text)
 
     async def get_exercise_template(
-            self, exercise_template_id: str
+        self, exercise_template_id: str
     ) -> ExerciseTemplate:
         """Get a single exercise template by ID.
 
@@ -233,8 +233,8 @@ class ExerciseTemplatesAsync:
         data = resp.json()
         if resp.status_code >= 400:
             message = (
-                          data.get("message") if isinstance(data, dict) else None
-                      ) or resp.text
+                data.get("message") if isinstance(data, dict) else None
+            ) or resp.text
             code = data.get("code") if isinstance(data, dict) else None
             raise_for_status(
                 status_code=resp.status_code,

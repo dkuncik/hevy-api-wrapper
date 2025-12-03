@@ -15,11 +15,11 @@ class ExerciseHistorySync:
         self._client = client
 
     def get_exercise_history(
-            self,
-            exercise_template_id: str,
-            *,
-            start_date: Optional[str] = None,
-            end_date: Optional[str] = None,
+        self,
+        exercise_template_id: str,
+        *,
+        start_date: Optional[str] = None,
+        end_date: Optional[str] = None,
     ) -> ExerciseHistoryResponse:
         """Get exercise history for a specific exercise template.
 
@@ -43,8 +43,8 @@ class ExerciseHistorySync:
         data = resp.json()
         if resp.status_code >= 400:
             message = (
-                          data.get("message") if isinstance(data, dict) else None
-                      ) or resp.text
+                data.get("message") if isinstance(data, dict) else None
+            ) or resp.text
             code = data.get("code") if isinstance(data, dict) else None
             raise_for_status(
                 status_code=resp.status_code,
@@ -63,11 +63,11 @@ class ExerciseHistoryAsync:
         self._client = client
 
     async def get_exercise_history(
-            self,
-            exercise_template_id: str,
-            *,
-            start_date: Optional[str] = None,
-            end_date: Optional[str] = None,
+        self,
+        exercise_template_id: str,
+        *,
+        start_date: Optional[str] = None,
+        end_date: Optional[str] = None,
     ) -> ExerciseHistoryResponse:
         """Get exercise history for a specific exercise template.
 
@@ -91,8 +91,8 @@ class ExerciseHistoryAsync:
         data = resp.json()
         if resp.status_code >= 400:
             message = (
-                          data.get("message") if isinstance(data, dict) else None
-                      ) or resp.text
+                data.get("message") if isinstance(data, dict) else None
+            ) or resp.text
             code = data.get("code") if isinstance(data, dict) else None
             raise_for_status(
                 status_code=resp.status_code,
