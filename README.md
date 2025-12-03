@@ -547,9 +547,6 @@ Install:
 pip install hevy-api-wrapper==1.0.0
 ```
 
-Compare:
-https://github.com/dkuncik/hevy-api-wrapper/compare/v0.0.0...v1.0.0
-
 ---
 
 ## 💡 Tips & Best Practices
